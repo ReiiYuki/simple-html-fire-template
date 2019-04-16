@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Simple Project</title>
+    </head>
+    <body>
+        <div id="login-panel">
+            <input id="id" placeholder="ID">
+            <input id="password" placeholder="PASSWORD" type="password">
+            <button id="loginButton">Login</button>
+            <span id="err" color="red">Auth Failure</span>
+        </div>
+        <div id="content">
+            <h1>Something after login</h1>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>
+            $('#err').hide()
+            $('#content').hide()
+            var firebaseConfig = {
+                // your config
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            
+            $('#loginButton').bind('click', () => {
+                firebase.auth()
+                .signInWithEmailAndPassword($('#id').val(), $('#password').val())
+                .then(() => {
+                    $('#err').hide()
+                    $('#login-panel').hide()
+                    $('#content').show()
+                })
+                .catch(function(error) {
+                    $('#err').show()
+                })
+            })
+        </script>
+    </body>
+</html>
